@@ -101,7 +101,7 @@ This application is built using Streamlit and integrates with various APIs to pr
 - [Google Gemini API](https://cloud.google.com/)
 - [Google Translate API](https://pypi.org/project/googletrans/)
 - [LangChain](https://python.langchain.com/)
-- [FAISS](https://github.com/facebookresearch/faiss)
+- [FAISS](https://github.com/facebookresearch/faiss).
 
 
 #### Made By [Pavankumar](https://www.linkedin.com/in/pavankumar-kurapati/)
