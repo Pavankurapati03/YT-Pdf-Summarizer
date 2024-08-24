@@ -102,3 +102,11 @@ This application is built using Streamlit and integrates with various APIs to pr
 - [Google Translate API](https://pypi.org/project/googletrans/)
 - [LangChain](https://python.langchain.com/)
 - [FAISS](https://github.com/facebookresearch/faiss)
+
+
+#### Made By [Pavankumar](https://www.linkedin.com/in/pavankumar-kurapati/)
+For Queries, Reach out on [LinkedIn](https://www.linkedin.com/in/pavankumar-kurapati/)  
+Resume Analyzer - Making Job Applications Easier
+
+#### Check out my project : https://yt-pdf-summarizer.streamlit.app/
+
