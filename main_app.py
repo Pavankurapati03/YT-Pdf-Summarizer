@@ -73,41 +73,41 @@ if task == "YouTube Video":
 
     # YouTube Summarizer with Conversational Chat
 
-# Function to generate an answer based on summary content
-def generate_answer(summary, question):
-    question_prompt = f"""You are a helpful assistant. Based on the following summary of a YouTube video:
+    # Function to generate an answer based on summary content
+    def generate_answer(summary, question):
+        question_prompt = f"""You are a helpful assistant. Based on the following summary of a YouTube video:
+        
+    Summary:
+    {summary}
     
-Summary:
-{summary}
-
-The user has asked the following question:
-{question}
-
-Please provide a clear and concise answer based on the information in the summary."""
+    The user has asked the following question:
+    {question}
     
-    model = genai.GenerativeModel("gemini-pro")
-    response = model.generate_content(question_prompt)
-    return response.text
-
-# Function to handle user input for the YouTube Summarizer
-def youtube_user_input(user_question, summary):
-    # Generate the answer based on the summary and the user's question
-    answer = generate_answer(summary, user_question)
+    Please provide a clear and concise answer based on the information in the summary."""
+        
+        model = genai.GenerativeModel("gemini-pro")
+        response = model.generate_content(question_prompt)
+        return response.text
     
-    # Store the question and answer in session state
-    st.session_state.youtube_chat_history.insert(0, {"question": user_question, "answer": answer})
-
-# Load CSS
-def load_css():
-    with open("styles.css") as f:
-        st.write(f"<style>{f.read()}</style>", unsafe_allow_html=True)
-
-# Function to display the chat history with HTML and CSS
-def display_youtube_chat_history():
-    if st.session_state.youtube_chat_history:
-        for entry in st.session_state.youtube_chat_history:
-            st.write(HTML_TEMPLATES["user"].replace("{{MSG}}", entry['question']), unsafe_allow_html=True)
-            st.markdown(HTML_TEMPLATES["bot"].replace("{{MSG}}", entry['answer']), unsafe_allow_html=True)
+    # Function to handle user input for the YouTube Summarizer
+    def youtube_user_input(user_question, summary):
+        # Generate the answer based on the summary and the user's question
+        answer = generate_answer(summary, user_question)
+        
+        # Store the question and answer in session state
+        st.session_state.youtube_chat_history.insert(0, {"question": user_question, "answer": answer})
+    
+    # Load CSS
+    def load_css():
+        with open("styles.css") as f:
+            st.write(f"<style>{f.read()}</style>", unsafe_allow_html=True)
+    
+    # Function to display the chat history with HTML and CSS
+    def display_youtube_chat_history():
+        if st.session_state.youtube_chat_history:
+            for entry in st.session_state.youtube_chat_history:
+                st.write(HTML_TEMPLATES["user"].replace("{{MSG}}", entry['question']), unsafe_allow_html=True)
+                st.markdown(HTML_TEMPLATES["bot"].replace("{{MSG}}", entry['answer']), unsafe_allow_html=True)
 
 # Streamlit UI
 st.title("YT Video Summarizer")
