@@ -104,6 +104,8 @@ This application is built using Streamlit and integrates with various APIs to pr
 - [FAISS](https://github.com/facebookresearch/faiss).
 
 
+
+
 #### Made By [Pavankumar](https://www.linkedin.com/in/pavankumar-kurapati/)
 For Queries, Reach out on [LinkedIn](https://www.linkedin.com/in/pavankumar-kurapati/)  
 Resume Analyzer - Making Job Applications Easier
