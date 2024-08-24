@@ -1,3 +1,15 @@
+---
+title: Summarizer
+emoji: 🌖
+colorFrom: gray
+colorTo: yellow
+sdk: streamlit
+sdk_version: 1.37.1
+app_file: main_app.py
+pinned: false
+license: gemma
+---
+
 # YT & PDF Summarizer
 
 ## Overview
