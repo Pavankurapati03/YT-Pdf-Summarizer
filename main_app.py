@@ -109,70 +109,70 @@ if task == "YouTube Video":
                 st.write(HTML_TEMPLATES["user"].replace("{{MSG}}", entry['question']), unsafe_allow_html=True)
                 st.markdown(HTML_TEMPLATES["bot"].replace("{{MSG}}", entry['answer']), unsafe_allow_html=True)
 
-# Streamlit UI
-st.title("YT Video Summarizer")
-
-# Load CSS
-load_css()
-
-youtube_link = st.text_input("Paste the YouTube Video Link:")
-
-st.markdown("""
-<div style='color: #888888; font-size: 0.9em;'>
-    **Note:** Please make sure the YouTube link only contains the video ID after the `v=` parameter. 
-    If the link has additional parameters (like `&` followed by other text), 
-    they will be ignored to correctly retrieve the video thumbnail and transcript.
-</div>
-""", unsafe_allow_html=True)
-
-if youtube_link:
-    video_id = youtube_link.split("=")[1]
-    st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
-
-if st.button("Get Detailed Notes"):
-    transcript_text = extract_transcript_details(youtube_link)
-
-    if transcript_text:
-        # Detect language (optional)
-        detected_language = detect(transcript_text)
-        st.write(f"Detected Language: {detected_language}")
-
-        # Translate if needed
-        if detected_language != 'en':
-            transcript_text = translate_text(transcript_text, target_language='en')
-
-        summary = generate_gemini_content(transcript_text, prompt)
-        st.session_state.summary = summary  # Store the summary in session state
-        st.session_state.youtube_chat_history = []  # Initialize chat history
-        st.markdown("## Detailed Notes:")
-        st.write(summary)
-    else:
-        st.error("No transcript available for this video. Summary cannot be generated.")
-
-# Check if the summary exists in the session state
-if 'summary' in st.session_state:
-    summary = st.session_state.summary
-
-    # Option to download the summary as a PDF
-    if st.button("Download Summary as PDF"):
-        pdf_path = os.path.join("temp", "summary.pdf")
-        if not os.path.exists("temp"):
-            os.makedirs("temp")
-        generate_pdf(summary, pdf_path)
-        download_pdf(pdf_path, "summary.pdf")
-
-    # Option to speak the summary aloud
-    if st.button("Speak Summary"):
-        speak_text(summary)
-
-    # Follow-up Question Feature
-    st.markdown("## Have a Question About the Video?")
-    question = st.text_input("Enter your question:")
-
-    if question and st.button("Get Answer"):
-        youtube_user_input(question, summary)
-        display_youtube_chat_history()
-
+    # Streamlit UI
+    st.title("YT Video Summarizer")
+    
+    # Load CSS
+    load_css()
+    
+    youtube_link = st.text_input("Paste the YouTube Video Link:")
+    
+    st.markdown("""
+    <div style='color: #888888; font-size: 0.9em;'>
+        **Note:** Please make sure the YouTube link only contains the video ID after the `v=` parameter. 
+        If the link has additional parameters (like `&` followed by other text), 
+        they will be ignored to correctly retrieve the video thumbnail and transcript.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    if youtube_link:
+        video_id = youtube_link.split("=")[1]
+        st.image(f"http://img.youtube.com/vi/{video_id}/0.jpg", use_column_width=True)
+    
+    if st.button("Get Detailed Notes"):
+        transcript_text = extract_transcript_details(youtube_link)
+    
+        if transcript_text:
+            # Detect language (optional)
+            detected_language = detect(transcript_text)
+            st.write(f"Detected Language: {detected_language}")
+    
+            # Translate if needed
+            if detected_language != 'en':
+                transcript_text = translate_text(transcript_text, target_language='en')
+    
+            summary = generate_gemini_content(transcript_text, prompt)
+            st.session_state.summary = summary  # Store the summary in session state
+            st.session_state.youtube_chat_history = []  # Initialize chat history
+            st.markdown("## Detailed Notes:")
+            st.write(summary)
+        else:
+            st.error("No transcript available for this video. Summary cannot be generated.")
+    
+    # Check if the summary exists in the session state
+    if 'summary' in st.session_state:
+        summary = st.session_state.summary
+    
+        # Option to download the summary as a PDF
+        if st.button("Download Summary as PDF"):
+            pdf_path = os.path.join("temp", "summary.pdf")
+            if not os.path.exists("temp"):
+                os.makedirs("temp")
+            generate_pdf(summary, pdf_path)
+            download_pdf(pdf_path, "summary.pdf")
+    
+        # Option to speak the summary aloud
+        if st.button("Speak Summary"):
+            speak_text(summary)
+    
+        # Follow-up Question Feature
+        st.markdown("## Have a Question About the Video?")
+        question = st.text_input("Enter your question:")
+    
+        if question and st.button("Get Answer"):
+            youtube_user_input(question, summary)
+            display_youtube_chat_history()
+    
 
 
 # PDF Summarizer
